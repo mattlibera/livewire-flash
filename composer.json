@@ -1,0 +1,39 @@
+{
+    "name": "mattlibera/livewire-flash",
+    "description": "Flash notifications using Livewire",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matt Libera",
+            "email": "me@mattlibera.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3.0",
+        "illuminate/support": "^7.0|^8.0",
+        "livewire/livewire": "^1.2"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master",
+        "phpunit/phpunit": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "MattLibera\\LivewireFlash\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MattLibera\\LivewireFlash\\LivewireFlashServiceProvider"
+            ],
+            "aliases": {
+                "LivewireFlash": "MattLibera\\LivewireFlash\\LivewireFlash"
+            }
+        }
+    }
+}
