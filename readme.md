@@ -12,6 +12,13 @@ Install via composer:
 composer require mattlibera/livewire-flash
 ```
 
+## Requirements
+
+* Laravel 7.0 or above
+* Livewire, obviously.
+
+> For new applications, consider using the TALL preset for Laravel: https://github.com/laravel-frontend-presets/tall
+
 ## Recommended add-ons
 
 Out of the box, the default alert component uses:
