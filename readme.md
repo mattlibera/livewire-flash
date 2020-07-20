@@ -75,6 +75,19 @@ php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashSer
 
 Then, you can change the views that the Livewire components use for rendering, and the styles applied to each message type. If you are not using TailwindCSS and/or FontAwesome, you should customize that view to call your own alert component/partial to fit whatever your stack is using.
 
+If you ARE using TailwindCSS and FontAwesome, this config class can still be published to tweak the color classes and icon classes that are used for each message.
+
+```php
+'styles' => [
+    'info' => [
+        'bg-color'     => 'bg-blue-100', // could change to bg-purple-100, or something.
+        'border-color' => 'border-blue-400',
+        'icon-color'   => 'text-blue-400',
+        'text-color'   => 'text-blue-800',
+        'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
+    ],
+```
+
 ## Dismissable Messages
 
 By default, each message will be set to be dismissable (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` to your *normal* flash messages.
