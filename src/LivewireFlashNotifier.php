@@ -165,7 +165,6 @@ class LivewireFlashNotifier
     protected function flash()
     {
         $this->session->flash('flash_notification', $this->messages);
-        dump(session('flash_notification'));
 
         return $this;
     }
