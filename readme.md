@@ -64,7 +64,7 @@ public function livewireAction()
 
 ## Templates
 
-Out of the box, the Livewire Flash Container component is registered for you. All you have to do is include it:
+Out of the box, the Livewire Flash Container component is registered for you. All you have to do is include it in your template:
 
 ```html
 <livewire:flash-container />
@@ -97,9 +97,9 @@ If you ARE using TailwindCSS and FontAwesome, this config class can still be pub
 
 ## Dismissable Messages
 
-By default, each message will be set to be dismissable (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` to your *normal* flash messages.
+By default, each message will be set to be dismissable (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` (or `->dismissable(false)`) to your flash directive.
 
-You can add your own magic via AlpineJS or whatever else if you want to fade messages out automatically.
+You can add your own magic via AlpineJS or whatever else if you want to fade messages out automatically - right now each message is a Livewire component and uses Livewire logic to hide it when it is dismissed.
 
 ## Multiple Flash Messages
 
