@@ -127,6 +127,10 @@ flash('Message 2')->livewire($this); // this one will show on current page via L
 
 I am open to contributions to this package, and will do the best I can to maintain it over time. Pull requests are welcome, and in fact encouraged. Right now there are no specific guidelines for a PR.
 
+# Road Map
+
+- Ability to define more/custom alert types via config (tapping into `__call` on the Notifier class, probably)
+
 # Credits and License
 
 Credit for the original package goes to Jeffrey Way and Laracasts. Additional thanks:
