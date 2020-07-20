@@ -6,14 +6,14 @@ use Livewire\Component;
 
 class FlashContainer extends Component
 {
-    public $notifications = [];
+    public $messages = [];
 
     protected $listeners = ['flashMessageAdded'];
 
     public function mount()
     {
         // grab any normal flash messages and render them
-        $this->notifications = session('flash_notification', collect())->toArray();
+        $this->messages = session('flash_notification', collect())->toArray();
         session()->forget('flash_notification');
     }
 
@@ -24,6 +24,11 @@ class FlashContainer extends Component
 
     public function flashMessageAdded($message)
     {
-        $this->notifications = $message;
+        $this->messages[] = $message;
+    }
+
+    public function dismissMessage($key)
+    {
+        unset($this->messages[$key]);
     }
 }

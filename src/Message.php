@@ -57,8 +57,6 @@ class Message implements \ArrayAccess
      */
     public function update($attributes = [])
     {
-        $attributes = array_filter($attributes);
-
         foreach ($attributes as $key => $attribute) {
             $this->$key = $attribute;
         }

@@ -2,6 +2,7 @@
 
 namespace MattLibera\LivewireFlash;
 
+use Livewire\Component;
 use Illuminate\Support\Traits\Macroable;
 
 class LivewireFlashNotifier
@@ -164,6 +165,20 @@ class LivewireFlashNotifier
     protected function flash()
     {
         $this->session->flash('flash_notification', $this->messages);
+        dump(session('flash_notification'));
+
+        return $this;
+    }
+
+    /**
+     * livewire
+     *
+     * @param  Livewire\Component $livewire
+     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
+     */
+    public function livewire(Component $livewire)
+    {
+        $livewire->emit('flashMessageAdded', $this->messages->pop());
 
         return $this;
     }
