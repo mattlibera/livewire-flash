@@ -1,5 +1,5 @@
 <section>
-@foreach ($notifications as $message)
-    <livewire:flash-message :message="$message" wire:key="lwfm_{{ $loop->index }}" />
+@foreach ($messages as $index => $message)
+    <livewire:flash-message :message="$message" :key="'lwfm_' . $index" />
 @endforeach
 </section>
