@@ -52,7 +52,6 @@ public function livewireAction()
 - `flash('Message')->success()`: Set the flash theme to "success".
 - `flash('Message')->error()`: Set the flash theme to "danger".
 - `flash('Message')->warning()`: Set the flash theme to "warning".
-- `flash()->overlay('Modal Message', 'Modal Title')`: Display a modal overlay with a title.
 - `flash('Message')->notDismissable()`: Remove the close button on the flash message.
 - `flash('Message')->error()->notDismissable()`: Render a "danger" flash message that cannot be dismissed.
 
