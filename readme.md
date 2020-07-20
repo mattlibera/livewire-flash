@@ -110,7 +110,17 @@ flash('Message 2')->livewire($this); // this one will show on current page via L
 
 ```
 
-# Credits
+# Contributing
 
-Many thanks to Jeffrey Way and Laracasts for offering the base functionality of this package, and to Caleb Porzio and his Livewire contributors for the awesome framework!
+I am open to contributions to this package, and will do the best I can to maintain it over time. Pull requests are welcome, and in fact encouraged. Right now there are no specific guidelines for a PR.
+
+# Credits and License
+
+Credit for the original package goes to Jeffrey Way and Laracasts. Additional thanks:
+
+* Caleb Porzio and his Livewire contributors for the awesome framework
+* Adam Wathan and the Tailwind crew
+* Taylor Otwell and co. for Laravel
+
+This is an MIT-licensed package. Please read license.md for the details.
 
