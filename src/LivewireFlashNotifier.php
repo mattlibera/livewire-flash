@@ -167,4 +167,19 @@ class LivewireFlashNotifier
 
         return $this;
     }
+
+    /**
+     * livewire
+     *
+     * @param  Livewire\Component $livewire
+     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
+     */
+    protected function livewire(Component $livewire)
+    {
+        // read the messages from the session and send a livewire event from the component
+        $flash = session('flash_notification', collect())->toArray();
+        $livewire->emit('flashMessageAdded', $flash);
+
+        return $this;
+    }
 }
