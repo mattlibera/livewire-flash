@@ -27,7 +27,7 @@ return [
             'text-color'   => 'text-yellow-800',
             'icon'         => 'fas fa-exclamation-circle',
         ],
-        'error' => [
+        'danger' => [
             'bg-color'     => 'bg-red-100',
             'border-color' => 'border-red-400',
             'icon-color'   => 'text-red-400',
