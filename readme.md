@@ -54,13 +54,51 @@ public function livewireAction()
 }
 ```
 
-### Chaining
+### Message types
 
-- `flash('Message')->success()`: Set the flash theme to "success".
-- `flash('Message')->error()`: Set the flash theme to "danger".
-- `flash('Message')->warning()`: Set the flash theme to "warning".
-- `flash('Message')->notDismissable()`: Remove the close button on the flash message.
-- `flash('Message')->error()->notDismissable()`: Render a "danger" flash message that cannot be dismissed.
+Message types are defined in the `livewire-flash.php` config file, which can be published (see below) if desired. By default, there are four supported message types: `info` (default if nothing else is specified), `success`, `warning`, and `error`.
+
+To set a message's type, either:
+
+1. Pass it as the second argument to `flash()` - example: `flash('Your action succeeded', 'success')`, or
+2. Chain it as a method name fluently after `flash()` - example: `flash('Your action succeeded')->success()`
+
+Both of those will change the message's display (colors and icon) to the configured styles.
+
+### Customization
+
+To change the styles used by each message type, OR to add your own types, first publish the config file:
+
+```bash
+php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
+```
+
+Then, in the `styles` key you can change whatever you want:
+
+```php
+'styles' => [
+    'info' => [
+        'bg-color'     => 'bg-blue-100', // could change to bg-purple-100, or something.
+        'border-color' => 'border-blue-400',
+        'icon-color'   => 'text-blue-400',
+        'text-color'   => 'text-blue-800',
+        'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
+    ],
+```
+
+Or you can add your own:
+
+```php
+'notice' => [
+    'bg-color'     => 'bg-orange-100',
+    'border-color' => 'border-orange-400',
+    'icon-color'   => 'text-orange-400',
+    'text-color'   => 'text-orange-800',
+    'icon'         => 'fas fa-flag',
+],
+```
+
+Whatever the case, just ensure that you call the alert by its config key: `flash('An important message')->notice()`
 
 ## Templates
 
@@ -74,26 +112,26 @@ There are also some sample alert components (styled using TailwindCSS) included 
 
 ### Customization
 
-The config file `livewire-flash.php` can be published by running:
+You can change the views that the Livewire components use for rendering, and the styles applied to each message type.
+
+> If you are not using TailwindCSS and/or FontAwesome, you should definitely do this to call your own alert component/partial to fit whatever your stack is using.
+
+First, publish the config file:
 
 ```bash
 php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
 ```
 
-Then, you can change the views that the Livewire components use for rendering, and the styles applied to each message type. If you are not using TailwindCSS and/or FontAwesome, you should customize that view to call your own alert component/partial to fit whatever your stack is using.
-
-If you ARE using TailwindCSS and FontAwesome, this config class can still be published to tweak the color classes and icon classes that are used for each message.
+Then, edit the `views` area:
 
 ```php
-'styles' => [
-    'info' => [
-        'bg-color'     => 'bg-blue-100', // could change to bg-purple-100, or something.
-        'border-color' => 'border-blue-400',
-        'icon-color'   => 'text-blue-400',
-        'text-color'   => 'text-blue-800',
-        'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
-    ],
+'views' => [
+    'container' => 'livewire-flash::livewire.flash-container',
+    'message'   => 'partials.my-bootstrap-flash',
+],
 ```
+
+You can access the public message properties on `MattLibera\LivewireFlash\Message`, as well as `$styles` (which is injected via the Livewire component) in your template.
 
 ## Dismissable Messages
 
@@ -108,7 +146,7 @@ Multiple flash messages can be sent to the session:
 ```php
 // anywhere
 flash('Message 1');
-flash('Message 2')->important();
+flash('Message 2')->warning();
 
 return redirect('somewhere');
 ```
@@ -118,7 +156,7 @@ OR
 ```php
 // livewire component
 flash('Message 1')->livewire($this);
-flash('Message 2')->livewire($this);
+flash('Message 2')->warning()->livewire($this);
 ```
 
 However, at the moment, because of the way Livewire handles the session, you *cannot* mix-and-match... that is, you cannot do:
@@ -136,7 +174,10 @@ I am open to contributions to this package, and will do the best I can to mainta
 
 # Road Map
 
-- Ability to define more/custom alert types via config (tapping into `__call` on the Notifier class, probably)
+Some considerations for future versions:
+
+- Fluent options for setting an icon or colors on the fly
+- Modal for backward compatibility with original `laracasts/flash`
 
 # Credits and License
 
