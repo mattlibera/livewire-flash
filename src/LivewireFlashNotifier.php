@@ -35,50 +35,6 @@ class LivewireFlashNotifier
     }
 
     /**
-     * Flash an information message.
-     *
-     * @param  string|null $message
-     * @return $this
-     */
-    public function info($message = null)
-    {
-        return $this->message($message, 'info');
-    }
-
-    /**
-     * Flash a success message.
-     *
-     * @param  string|null $message
-     * @return $this
-     */
-    public function success($message = null)
-    {
-        return $this->message($message, 'success');
-    }
-
-    /**
-     * Flash an error message.
-     *
-     * @param  string|null $message
-     * @return $this
-     */
-    public function error($message = null)
-    {
-        return $this->message($message, 'danger');
-    }
-
-    /**
-     * Flash a warning message.
-     *
-     * @param  string|null $message
-     * @return $this
-     */
-    public function warning($message = null)
-    {
-        return $this->message($message, 'warning');
-    }
-
-    /**
      * Flash a general message.
      *
      * @param  string|null $message
@@ -170,7 +126,7 @@ class LivewireFlashNotifier
     }
 
     /**
-     * livewire
+     * Pop the last message off the stack and emit it to the Livewire component
      *
      * @param  Livewire\Component $livewire
      * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
@@ -180,5 +136,21 @@ class LivewireFlashNotifier
         $livewire->emit('flashMessageAdded', $this->messages->pop());
 
         return $this;
+    }
+
+
+    /**
+     * Magic __call: pass the method name called as the message type if it is configured
+     *
+     * @param mixed $method
+     * @param mixed $arguments
+     * @return void
+     */
+    public function __call($method, $arguments)
+    {
+        $messageTypes = config('livewire-flash.styles');
+        if (isset($messageTypes[$method])) {
+            $this->message(null, $method);
+        }
     }
 }
