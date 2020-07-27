@@ -144,13 +144,13 @@ class LivewireFlashNotifier
      *
      * @param mixed $method
      * @param mixed $arguments
-     * @return void
+     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
      */
     public function __call($method, $arguments)
     {
         $messageTypes = config('livewire-flash.styles');
         if (isset($messageTypes[$method])) {
-            $this->message(null, $method);
+            return $this->message(null, $method);
         }
     }
 }
