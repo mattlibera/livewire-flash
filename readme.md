@@ -14,10 +14,10 @@ composer require mattlibera/livewire-flash
 
 ## Requirements
 
-* Laravel 7.0 or above
-* Livewire, obviously.
+* Laravel >=7.0
+* Livewire ^1.2 or ^2.0
 
-> For new applications, consider using the TALL preset for Laravel: https://github.com/laravel-frontend-presets/tall
+> For new applications, consider using the TALL preset for Laravel: [https://github.com/laravel-frontend-presets/tall], or this package also works well with Laravel Jetstream: [https://jetstream.laravel.com/]
 
 ## Recommended add-ons
 
@@ -188,4 +188,3 @@ Credit for the original package goes to Jeffrey Way and Laracasts. Additional th
 * Taylor Otwell and co. for Laravel
 
 This is an MIT-licensed package. Please read license.md for the details.
-
