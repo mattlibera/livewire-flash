@@ -9,7 +9,7 @@ class OverlayMessage extends Message
      *
      * @var string
      */
-    public $title = 'Notice';
+    public $title = null;
 
     /**
      * Whether the message is an overlay.

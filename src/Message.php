@@ -40,6 +40,13 @@ class Message implements \ArrayAccess
     public $dismissable = true;
 
     /**
+     * Whether the message is an overlay.
+     *
+     * @var bool
+     */
+    public $overlay = false;
+
+    /**
      * Create a new message instance.
      *
      * @param array $attributes
@@ -57,6 +64,8 @@ class Message implements \ArrayAccess
      */
     public function update($attributes = [])
     {
+        $attributes = array_filter($attributes);
+
         foreach ($attributes as $key => $attribute) {
             $this->$key = $attribute;
         }

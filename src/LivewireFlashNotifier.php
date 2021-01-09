@@ -72,6 +72,24 @@ class LivewireFlashNotifier
     }
 
     /**
+     * Flash an overlay modal.
+     *
+     * @param  string|null $message
+     * @param  string      $title
+     * @return $this
+     */
+    public function overlay($message = null, $title = null)
+    {
+        if (! $message) {
+            return $this->updateLastMessage(['title' => $title, 'overlay' => true]);
+        }
+
+        return $this->message(
+            new OverlayMessage(compact('title', 'message'))
+        );
+    }
+
+    /**
      * Add an "important" flash to the session.
      *
      * @return $this

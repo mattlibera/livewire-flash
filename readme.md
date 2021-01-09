@@ -65,6 +65,13 @@ To set a message's type, either:
 
 Both of those will change the message's display (colors and icon) to the configured styles.
 
+### Overlay Message
+
+Overlay message is defined in the `livewire-flash.php` config file, which can be published (see below) if desired.
+
+To set an overlay message, chain the method name `overlay()` after `flash()`. When using overlay leave the `flash()` parameter empty. Enter your message as the first parameter and title as second parameter for `overlay()` - example: `flash()->overlay('Modal Message', 'Modal Title')`
+
+
 ### Customization
 
 To change the styles used by each message type, OR to add your own types, first publish the config file:
@@ -186,5 +193,6 @@ Credit for the original package goes to Jeffrey Way and Laracasts. Additional th
 * Caleb Porzio and his Livewire contributors for the awesome framework
 * Adam Wathan and the Tailwind crew
 * Taylor Otwell and co. for Laravel
+* Jeffery Way and his original Laracasts Flash package
 
 This is an MIT-licensed package. Please read license.md for the details.
