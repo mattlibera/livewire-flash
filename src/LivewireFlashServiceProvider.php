@@ -48,5 +48,6 @@ class LivewireFlashServiceProvider extends ServiceProvider
 
         Livewire::component('flash-container', \MattLibera\LivewireFlash\Livewire\FlashContainer::class);
         Livewire::component('flash-message', \MattLibera\LivewireFlash\Livewire\FlashMessage::class);
+        Livewire::component('flash-overlay', \MattLibera\LivewireFlash\Livewire\FlashOverlay::class);
     }
 }
