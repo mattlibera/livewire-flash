@@ -69,8 +69,18 @@ Both of those will change the message's display (colors and icon) to the configu
 
 Overlay message is defined in the `livewire-flash.php` config file, which can be published (see below) if desired.
 
-To set an overlay message, chain the method name `overlay()` after `flash()`. When using overlay leave the `flash()` parameter empty. Enter your message as the first parameter and title as second parameter for `overlay()` - example: `flash()->overlay('Modal Message', 'Modal Title')`
+To set an overlay message, chain the method name `overlay()` after `flash()`. When using overlay leave the `flash()` parameter empty. Enter your message as the first parameter and title as second parameter for `overlay()`. This can be used with or without the `livewire($this)` suffix:
 
+```
+// renders on next page load
+flash()->overlay('This is my message', 'The Title');
+return redirect('somewhere');
+
+// renders immediately via Livewire
+flash()->overlay('This is my message', 'The Title')->livewire($this);
+```
+
+Note that the out-of-the-box overlay component does support HTML code for the body and title, using the Blade unescaped `{!! !!}` tags.
 
 ### Customization
 
@@ -106,6 +116,8 @@ Or you can add your own:
 ```
 
 Whatever the case, just ensure that you call the alert by its config key: `flash('An important message')->notice()`
+
+To customize overlay styles, see the `overlay` key of the config file.
 
 ## Templates
 
@@ -146,6 +158,8 @@ By default, each message will be set to be dismissable (that is, have an X icon 
 
 You can add your own magic via AlpineJS or whatever else if you want to fade messages out automatically - right now each message is a Livewire component and uses Livewire logic to hide it when it is dismissed.
 
+_Note that the overlay does not support this directive._
+
 ## Multiple Flash Messages
 
 Multiple flash messages can be sent to the session:
@@ -184,7 +198,7 @@ I am open to contributions to this package, and will do the best I can to mainta
 Some considerations for future versions:
 
 - Fluent options for setting an icon or colors on the fly
-- Modal for backward compatibility with original `laracasts/flash`
+- Auto-dismissing option for flash messages
 
 # Credits and License
 
@@ -193,6 +207,5 @@ Credit for the original package goes to Jeffrey Way and Laracasts. Additional th
 * Caleb Porzio and his Livewire contributors for the awesome framework
 * Adam Wathan and the Tailwind crew
 * Taylor Otwell and co. for Laravel
-* Jeffery Way and his original Laracasts Flash package
 
 This is an MIT-licensed package. Please read license.md for the details.
