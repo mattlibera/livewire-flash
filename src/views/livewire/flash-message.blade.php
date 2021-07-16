@@ -24,9 +24,11 @@
                 @endif
             </div>
         </div>
-        <div class="w-full overflow-hidden">
-            <div class="w-full {{ $styles['ticker-color'] }} tickDown" style="animation-duration: {{ $message['dismissAfter'] + 0.1 }}s"></div>
-        </div>
+        @if ($message['dismissAfter'])
+            <div class="w-full overflow-hidden">
+                <div class="w-full {{ $styles['ticker-color'] }} tickDown" style="animation-duration: {{ $message['dismissAfter'] + 0.1 }}s"></div>
+            </div>
+        @endif
     </div>
     @endif
     @if($message['dismissAfter'])
