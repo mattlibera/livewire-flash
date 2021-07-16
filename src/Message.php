@@ -47,6 +47,13 @@ class Message implements \ArrayAccess
     public $overlay = false;
 
     /**
+     * Auto-dismiss interval, in seconds
+     *
+     * @var int|bool
+     */
+    public $dismissAfter = false;
+
+    /**
      * Create a new message instance.
      *
      * @param array $attributes
