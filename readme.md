@@ -99,6 +99,7 @@ Then, in the `styles` key you can change whatever you want:
         'border-color' => 'border-blue-400',
         'icon-color'   => 'text-blue-400',
         'text-color'   => 'text-blue-800',
+        'ticker-color' => 'bg-blue-600',
         'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
     ],
 ```
@@ -111,6 +112,7 @@ Or you can add your own:
     'border-color' => 'border-orange-400',
     'icon-color'   => 'text-orange-400',
     'text-color'   => 'text-orange-800',
+    'ticker-color' => 'bg-orange-600',
     'icon'         => 'fas fa-flag',
 ],
 ```
@@ -156,7 +158,13 @@ You can access the public message properties on `MattLibera\LivewireFlash\Messag
 
 By default, each message will be set to be dismissable (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` (or `->dismissable(false)`) to your flash directive.
 
-You can add your own magic via AlpineJS or whatever else if you want to fade messages out automatically - right now each message is a Livewire component and uses Livewire logic to hide it when it is dismissed.
+_Note that the overlay does not support this directive._
+
+## Auto-dismissing Messages
+
+By default, a message will persist on the screen until it is dismissed manually. If you wish to implement an auto-dismissing message, that will dismiss itself after X seconds, you can use `->dismissAfter(X)` (e.g. `->dismissAfter(3)` for 3 seconds). The default message and container files have added code that should handle this for you using vanilla Javascript and embedded CSS.
+
+In addition, the auto-dismiss will pause if moused-over. Currently this is not configurable in the API, but if you wish to remove this feature, you can always publish and customize your own view file for the container, and remove the `mouseenter` and `mouseleave` bindings.
 
 _Note that the overlay does not support this directive._
 
@@ -198,7 +206,7 @@ I am open to contributions to this package, and will do the best I can to mainta
 Some considerations for future versions:
 
 - Fluent options for setting an icon or colors on the fly
-- Auto-dismissing option for flash messages
+- Message bags / sets, so that multiple containers may be used on a page
 
 # Credits and License
 
