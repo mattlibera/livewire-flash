@@ -12,6 +12,7 @@ return [
             'border-color' => 'border-blue-400',
             'icon-color'   => 'text-blue-400',
             'text-color'   => 'text-blue-800',
+            'ticker-color' => 'bg-blue-600',
             'icon'         => 'fas fa-info-circle',
         ],
         'success' => [
@@ -19,6 +20,7 @@ return [
             'border-color' => 'border-green-400',
             'icon-color'   => 'text-green-400',
             'text-color'   => 'text-green-800',
+            'ticker-color' => 'bg-green-600',
             'icon'         => 'fas fa-check',
         ],
         'warning' => [
@@ -26,6 +28,7 @@ return [
             'border-color' => 'border-yellow-400',
             'icon-color'   => 'text-yellow-400',
             'text-color'   => 'text-yellow-800',
+            'ticker-color' => 'bg-yellow-600',
             'icon'         => 'fas fa-exclamation-circle',
         ],
         'error' => [
@@ -33,10 +36,11 @@ return [
             'border-color' => 'border-red-400',
             'icon-color'   => 'text-red-400',
             'text-color'   => 'text-red-800',
+            'ticker-color' => 'bg-red-600',
             'icon'         => 'fas fa-exclamation-triangle',
         ],
         'overlay' => [
-            'overly-bg-color' => 'bg-gray-500',
+            'overly-bg-color'    => 'bg-gray-500',
             'overlay-bg-opacity' => 'opacity-75',
 
             'title-text-color' => 'text-gray-900',
@@ -44,10 +48,10 @@ return [
             'body-text-color' => 'text-gray-500',
 
             'button-border-color' => 'border-transparent',
-            'button-bg-color' => 'bg-indigo-600',
-            'button-text-color' => 'text-white',
+            'button-bg-color'     => 'bg-indigo-600',
+            'button-text-color'   => 'text-white',
 
-            'button-hover-bg-color' => 'hover:bg-indigo-700',
+            'button-hover-bg-color'   => 'hover:bg-indigo-700',
             'button-hover-text-color' => 'hover:text-white',
             'button-focus-ring-color' => 'focus:ring-indigo-500',
 
