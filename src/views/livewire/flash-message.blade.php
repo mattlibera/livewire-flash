@@ -20,7 +20,11 @@
             <div class="ml-auto pl-3">
                 <div class="-mx-1.5 -my-1.5">
                     <button class="inline-flex rounded-md p-1.5 {{ $styles['text-color'] }} focus:outline-none transition ease-in-out duration-150" wire:click="dismiss">
-                    <i class="fas fa-times"></i>
+                    @if($iconset === 'fa')
+                        <i class="{{ $dismiss[$iconset]['class'] }}"></i>
+                        @elseif($iconset === 'blade')
+                        @svg($dismiss[$iconset]['name'], $dismiss[$iconset]['class'])
+                        @endif
                     </button>
                 </div>
             </div>

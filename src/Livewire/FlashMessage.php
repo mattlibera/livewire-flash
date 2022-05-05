@@ -9,6 +9,7 @@ class FlashMessage extends Component
     public $message;
     public $styles = [];
     public $iconset;
+    public $dismiss;
 
     public $shown = true;
 
@@ -20,6 +21,7 @@ class FlashMessage extends Component
         $this->message = $message;
         $this->styles = config('livewire-flash.styles.' . $this->message['level']);
         $this->iconset = config('livewire-flash.iconset');
+        $this->dismiss = config('livewire-flash.styles.dismiss');
     }
 
     public function render()

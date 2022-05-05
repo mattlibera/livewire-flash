@@ -168,6 +168,22 @@ You can add your own magic via AlpineJS or whatever else if you want to fade mes
 
 _Note that the overlay does not support this directive._
 
+You can define the _dismiss_ icon in the `livewire-flash` config file.
+
+```php
+'dismiss' => [
+    'icon' => [
+        'fa' => [
+            'class' => 'fas fa-times',
+        ],
+        'blade' => [
+            'name' => 'heroicon-s-x',
+            'class' => 'w-4 h-4',
+        ]
+    ],
+]
+```
+
 ## Multiple Flash Messages
 
 Multiple flash messages can be sent to the session:
