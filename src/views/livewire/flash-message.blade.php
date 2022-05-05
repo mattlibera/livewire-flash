@@ -15,7 +15,7 @@
             @if ($message['dismissable'] ?? false)
             <div class="ml-auto pl-3">
                 <div class="-mx-1.5 -my-1.5">
-                    <button class="inline-flex rounded-md p-1.5 {{ $styles['text-color'] }} focus:outline-none transition ease-in-out duration-150" wire:click="dismiss">
+                    <button type="button" class="inline-flex rounded-md p-1.5 {{ $styles['text-color'] }} focus:outline-none transition ease-in-out duration-150" wire:click="dismiss">
                     <i class="fas fa-times"></i>
                     </button>
                 </div>
