@@ -88,16 +88,14 @@ return [
             'button-text' => 'Close',
         ],
         'dismiss' => [
-            'icon' => [
-                'fa' => [
-                    'class' => 'fas fa-times',
-                ],
-                'blade' => [
-                    'name' => 'heroicon-s-x',
-                    'class' => 'w-4 h-4',
-                ]
+            'fa' => [
+                'class' => 'fas fa-times',
             ],
+            'blade' => [
+                'name' => 'heroicon-s-x',
+                'class' => 'w-4 h-4',
+            ]
         ]
     ],
-    'iconset' => 'fa',
+    'iconset' => 'fa', // can be null to show no icon at all
 ];

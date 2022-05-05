@@ -111,6 +111,12 @@ Then, in the `styles` key you can change whatever you want:
     ],
 ```
 
+The Iconset is configured via the `iconset`-key in the `livewire-flash`-config.
+
+```php
+    'iconset' => 'fa', // can be `null` to show no icon at all
+```
+
 Or you can add your own:
 
 ```php
