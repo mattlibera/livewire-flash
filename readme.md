@@ -2,7 +2,7 @@
 
 This package provides flash message capability using Laravel Livewire. It is based very literally on `laracasts/flash` but has been extended to add the ability to flash a message to a the flash container (a Livewire component) without reloading the page.
 
- This package also retains much (though not all) of the same capability for "normal" flash messages, which are displayed on refresh by the same Livewire component.
+This package also retains much (though not all) of the same capability for "normal" flash messages, which are displayed on refresh by the same Livewire component.
 
 ## Installation
 
@@ -14,8 +14,8 @@ composer require mattlibera/livewire-flash
 
 ## Requirements
 
-* Laravel >=7.0
-* Livewire ^1.2 or ^2.0
+- Laravel >=7.0
+- Livewire ^1.2 or ^2.0
 
 > For new applications, consider using the TALL preset for Laravel: [https://github.com/laravel-frontend-presets/tall], or this package also works well with Laravel Jetstream: [https://jetstream.laravel.com/]
 
@@ -23,8 +23,8 @@ composer require mattlibera/livewire-flash
 
 Out of the box, the default alert component uses:
 
-* TailwindCSS
-* FontAwesome
+- TailwindCSS
+- FontAwesome (or BladeIcons)
 
 However, it's fairly trivial to implement your own views / styles instead, by publishing the config and overriding defaults. See below for more on that.
 
@@ -45,7 +45,7 @@ public function store()
 
 ### Livewire flash message (before reload)
 
- From your Livewire component, flash your message using the normal syntax, but then call the `livewire()` helper method as the last method in the chain. You must pass in `$this` as the argument, as this package utilizes the `emit` helper that exists on all Livewire components. Example:
+From your Livewire component, flash your message using the normal syntax, but then call the `livewire()` helper method as the last method in the chain. You must pass in `$this` as the argument, as this package utilizes the `emit` helper that exists on all Livewire components. Example:
 
 ```php
 public function livewireAction()
@@ -99,7 +99,15 @@ Then, in the `styles` key you can change whatever you want:
         'border-color' => 'border-blue-400',
         'icon-color'   => 'text-blue-400',
         'text-color'   => 'text-blue-800',
-        'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
+        'icon'         => [
+                'fa' => [
+                    'class' => 'fas fa-info-circle' // could change to another FontAwesome icon
+                ],
+                'blade' => [
+                    'name' => 'heroicon-s-information-circle', // could change to any other bladeicon set you have installed (https://github.com/blade-ui-kit/blade-icons#icon-packages)
+                    'class' => 'w-6 h-6' // change the sizing of the icon
+                ]
+            ],
     ],
 ```
 
@@ -180,7 +188,7 @@ flash('Message 1')->livewire($this);
 flash('Message 2')->warning()->livewire($this);
 ```
 
-However, at the moment, because of the way Livewire handles the session, you *cannot* mix-and-match... that is, you cannot do:
+However, at the moment, because of the way Livewire handles the session, you _cannot_ mix-and-match... that is, you cannot do:
 
 ```php
 // livewire component
@@ -204,8 +212,8 @@ Some considerations for future versions:
 
 Credit for the original package goes to Jeffrey Way and Laracasts. Additional thanks:
 
-* Caleb Porzio and his Livewire contributors for the awesome framework
-* Adam Wathan and the Tailwind crew
-* Taylor Otwell and co. for Laravel
+- Caleb Porzio and his Livewire contributors for the awesome framework
+- Adam Wathan and the Tailwind crew
+- Taylor Otwell and co. for Laravel
 
 This is an MIT-licensed package. Please read license.md for the details.

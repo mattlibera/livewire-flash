@@ -5,7 +5,11 @@
             @if ($styles['icon'] ?? false)
                 <div class="flex-shrink-0">
                     <p class="{{ $styles['icon-color'] }}">
-                        <i class="{{ $styles['icon'] }}"></i>
+                        @if($iconset === 'fa')
+                        <i class="{{ $styles['icon'][$iconset]['class'] }}"></i>
+                        @elseif($iconset === 'blade')
+                        @svg($styles['icon'][$iconset]['name'], $styles['icon'][$iconset]['class'])
+                        @endif
                     </p>
                 </div>
             @endif
