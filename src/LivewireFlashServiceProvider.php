@@ -40,8 +40,11 @@ class LivewireFlashServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/publish' => config_path(),
+        ], 'livewire-flash-config');
+
+        $this->publishes([
             __DIR__.'/views' => resource_path('views/vendor/livewire-flash'),
-        ]);
+        ], 'livewire-flash-views');
 
         Livewire::component('flash-container', \MattLibera\LivewireFlash\Livewire\FlashContainer::class);
         Livewire::component('flash-message', \MattLibera\LivewireFlash\Livewire\FlashMessage::class);

@@ -87,7 +87,7 @@ Note that the out-of-the-box overlay component does support HTML code for the bo
 To change the styles used by each message type, OR to add your own types, first publish the config file:
 
 ```bash
-php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
+php artisan vendor:publish --tag="livewire-flash-config"
 ```
 
 Then, in the `styles` key you can change whatever you want:
@@ -115,6 +115,17 @@ Or you can add your own:
 ],
 ```
 
+To change the view files used, edit the `views` section of the config file:
+
+```php
+'views' => [
+    'container' => 'livewire-flash::livewire.flash-container',
+    'message'   => 'partials.my-bootstrap-flash',
+],
+```
+
+If implementing your own views, you have access the public message properties on `MattLibera\LivewireFlash\Message`, as well as `$styles` (which is injected via the Livewire component) in your template.
+
 Whatever the case, just ensure that you call the alert by its config key: `flash('An important message')->notice()`
 
 To customize overlay styles, see the `overlay` key of the config file.
@@ -129,28 +140,14 @@ Out of the box, the Livewire Flash Container component is registered for you. Al
 
 There are also some sample alert components (styled using TailwindCSS) included with this package. However, if you do not wish to use those...
 
-### Customization
+You can either override the default templates, by publishing the views:
 
-You can change the views that the Livewire components use for rendering, and the styles applied to each message type.
-
-> If you are not using TailwindCSS and/or FontAwesome, you should definitely do this to call your own alert component/partial to fit whatever your stack is using.
-
-First, publish the config file:
-
+Additionally, you can override the views by publishing them, thusly:
 ```bash
-php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
+php artisan vendor:publish --tag="livewire-flash-views"
 ```
 
-Then, edit the `views` area:
-
-```php
-'views' => [
-    'container' => 'livewire-flash::livewire.flash-container',
-    'message'   => 'partials.my-bootstrap-flash',
-],
-```
-
-You can access the public message properties on `MattLibera\LivewireFlash\Message`, as well as `$styles` (which is injected via the Livewire component) in your template.
+Or by customizing the views used in the config file. See the Customization section above.
 
 ## Dismissable Messages
 
