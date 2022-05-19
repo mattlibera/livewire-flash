@@ -82,43 +82,6 @@ flash()->overlay('This is my message', 'The Title')->livewire($this);
 
 Note that the out-of-the-box overlay component does support HTML code for the body and title, using the Blade unescaped `{!! !!}` tags.
 
-### Customization
-
-To change the styles used by each message type, OR to add your own types, first publish the config file:
-
-```bash
-php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
-```
-
-Then, in the `styles` key you can change whatever you want:
-
-```php
-'styles' => [
-    'info' => [
-        'bg-color'     => 'bg-blue-100', // could change to bg-purple-100, or something.
-        'border-color' => 'border-blue-400',
-        'icon-color'   => 'text-blue-400',
-        'text-color'   => 'text-blue-800',
-        'icon'         => 'fas fa-info-circle', // could change to another FontAwesome icon
-    ],
-```
-
-Or you can add your own:
-
-```php
-'notice' => [
-    'bg-color'     => 'bg-orange-100',
-    'border-color' => 'border-orange-400',
-    'icon-color'   => 'text-orange-400',
-    'text-color'   => 'text-orange-800',
-    'icon'         => 'fas fa-flag',
-],
-```
-
-Whatever the case, just ensure that you call the alert by its config key: `flash('An important message')->notice()`
-
-To customize overlay styles, see the `overlay` key of the config file.
-
 ## Templates
 
 Out of the box, the Livewire Flash Container component is registered for you. All you have to do is include it in your template:
@@ -127,30 +90,11 @@ Out of the box, the Livewire Flash Container component is registered for you. Al
 <livewire:flash-container />
 ```
 
-There are also some sample alert components (styled using TailwindCSS) included with this package. However, if you do not wish to use those...
-
-### Customization
-
-You can change the views that the Livewire components use for rendering, and the styles applied to each message type.
-
-> If you are not using TailwindCSS and/or FontAwesome, you should definitely do this to call your own alert component/partial to fit whatever your stack is using.
-
-First, publish the config file:
+There are also some sample alert components (styled using TailwindCSS) included with this package. However, if you do not wish to use those, publish the views and replace their markup and styles with your own:
 
 ```bash
-php artisan vendor:publish --provider="MattLibera\LivewireFlash\LivewireFlashServiceProvider"
+php artisan vendor:publish --tag="livewire-flash-views"
 ```
-
-Then, edit the `views` area:
-
-```php
-'views' => [
-    'container' => 'livewire-flash::livewire.flash-container',
-    'message'   => 'partials.my-bootstrap-flash',
-],
-```
-
-You can access the public message properties on `MattLibera\LivewireFlash\Message`, as well as `$styles` (which is injected via the Livewire component) in your template.
 
 ## Dismissable Messages
 
@@ -160,6 +104,15 @@ You can add your own magic via AlpineJS or whatever else if you want to fade mes
 
 _Note that the overlay does not support this directive._
 
+## Auto-Dismissing Messages
+
+You can automatically dismiss messages by appending `->dismissAfter(5);` where the number is the number of seconds to display the message before removing it.
+
+The default templates include a nice countdown progress bar indicating when the message will be dismissed. The countdown pauses and resumes on mouseover/mouseout.
+
+_Note that the overlay does not support this directive._
+
+_Known issue: auto-dismiss only works with a single flash message, if multiple are displayed only one will be automatically dismissed, the rest will have to be manually dismissed, but will still display their countdown meter, which then resets on completion._
 ## Multiple Flash Messages
 
 Multiple flash messages can be sent to the session:
@@ -198,7 +151,7 @@ I am open to contributions to this package, and will do the best I can to mainta
 Some considerations for future versions:
 
 - Fluent options for setting an icon or colors on the fly
-- Auto-dismissing option for flash messages
+✅ Auto-dismissing option for flash messages
 
 # Credits and License
 
