@@ -2,8 +2,8 @@
 
 namespace MattLibera\LivewireFlash;
 
-use Livewire\Livewire;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class LivewireFlashServiceProvider extends ServiceProvider
 {
@@ -16,8 +16,6 @@ class LivewireFlashServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
@@ -33,18 +31,16 @@ class LivewireFlashServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__. '/publish/livewire-flash.php', 'livewire-flash');
+        $this->mergeConfigFrom(__DIR__.'/publish/livewire-flash.php', 'livewire-flash');
 
-        $this->loadViewsFrom(__DIR__ . '/views', 'livewire-flash');
+        $this->loadViewsFrom(__DIR__.'/views', 'livewire-flash');
 
         $this->publishes([
-            __DIR__ . '/publish' => config_path()
-        ]);
+            __DIR__.'/views' => resource_path('views/vendor/livewire-flash'),
+        ], 'livewire-flash-views');
 
         Livewire::component('flash-container', \MattLibera\LivewireFlash\Livewire\FlashContainer::class);
         Livewire::component('flash-message', \MattLibera\LivewireFlash\Livewire\FlashMessage::class);
