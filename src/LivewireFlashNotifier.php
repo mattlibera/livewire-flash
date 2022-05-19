@@ -2,19 +2,12 @@
 
 namespace MattLibera\LivewireFlash;
 
-use Livewire\Component;
 use Illuminate\Support\Traits\Macroable;
+use Livewire\Component;
 
 class LivewireFlashNotifier
 {
     use Macroable;
-
-    /**
-     * The session store.
-     *
-     * @var SessionStore
-     */
-    protected $session;
 
     /**
      * The messages collection.
@@ -24,9 +17,14 @@ class LivewireFlashNotifier
     public $messages;
 
     /**
-     * Create a new FlashNotifier instance.
+     * The session store.
      *
-     * @param SessionStore $session
+     * @var SessionStore
+     */
+    protected $session;
+
+    /**
+     * Create a new FlashNotifier instance.
      */
     public function __construct(SessionStore $session)
     {
@@ -35,21 +33,38 @@ class LivewireFlashNotifier
     }
 
     /**
+     * Magic __call: pass the method name called as the message type if it is configured.
+     *
+     * @param mixed $method
+     * @param mixed $arguments
+     *
+     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
+     */
+    public function __call($method, $arguments)
+    {
+        $messageTypes = config('livewire-flash.styles');
+        if (isset($messageTypes[$method])) {
+            return $this->message(null, $method);
+        }
+    }
+
+    /**
      * Flash a general message.
      *
-     * @param  string|null $message
-     * @param  string|null $level
+     * @param null|string $message
+     * @param null|string $level
+     *
      * @return $this
      */
     public function message($message = null, $level = null)
     {
         // If no message was provided, we should update
         // the most recently added message.
-        if (! $message) {
+        if (!$message) {
             return $this->updateLastMessage(compact('level'));
         }
 
-        if (! $message instanceof Message) {
+        if (!$message instanceof Message) {
             $message = new Message(compact('message', 'level'));
         }
 
@@ -59,28 +74,16 @@ class LivewireFlashNotifier
     }
 
     /**
-     * Modify the most recently added message.
-     *
-     * @param  array $overrides
-     * @return $this
-     */
-    protected function updateLastMessage($overrides = [])
-    {
-        $this->messages->last()->update($overrides);
-
-        return $this;
-    }
-
-    /**
      * Flash an overlay modal.
      *
-     * @param  string|null $message
-     * @param  string      $title
+     * @param null|string $message
+     * @param string      $title
+     *
      * @return $this
      */
     public function overlay($message = null, $title = null)
     {
-        if (! $message) {
+        if (!$message) {
             return $this->updateLastMessage(['title' => $title, 'overlay' => true]);
         }
 
@@ -102,8 +105,6 @@ class LivewireFlashNotifier
     /**
      * Set the dismissability of the last flash message.
      *
-     * @param bool $dismissable
-     *
      * @return $this
      */
     public function dismissable(bool $dismissable = true)
@@ -112,13 +113,23 @@ class LivewireFlashNotifier
     }
 
     /**
-     * Convenience method to set dismissable = false on a message
-     *
-     * @return void
+     * Convenience method to set dismissable = false on a message.
      */
     public function notDismissable()
     {
         return $this->dismissable(false);
+    }
+
+    /**
+     * Set an auto-dismiss interval on a message.
+     *
+     * @param bool|int $seconds
+     *
+     * @return $this
+     */
+    public function dismissAfter($seconds = false)
+    {
+        return $this->updateLastMessage(['dismissAfter' => $seconds]);
     }
 
     /**
@@ -134,19 +145,10 @@ class LivewireFlashNotifier
     }
 
     /**
-     * Flash all messages to the session.
-     */
-    protected function flash()
-    {
-        $this->session->flash('flash_notification', $this->messages);
-
-        return $this;
-    }
-
-    /**
-     * Pop the last message off the stack and emit it to the Livewire component
+     * Pop the last message off the stack and emit it to the Livewire component.
      *
-     * @param  Livewire\Component $livewire
+     * @param Livewire\Component $livewire
+     *
      * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
      */
     public function livewire(Component $livewire)
@@ -156,19 +158,27 @@ class LivewireFlashNotifier
         return $this;
     }
 
+    /**
+     * Modify the most recently added message.
+     *
+     * @param array $overrides
+     *
+     * @return $this
+     */
+    protected function updateLastMessage($overrides = [])
+    {
+        $this->messages->last()->update($overrides);
+
+        return $this;
+    }
 
     /**
-     * Magic __call: pass the method name called as the message type if it is configured
-     *
-     * @param mixed $method
-     * @param mixed $arguments
-     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
+     * Flash all messages to the session.
      */
-    public function __call($method, $arguments)
+    protected function flash()
     {
-        $messageTypes = config('livewire-flash.styles');
-        if (isset($messageTypes[$method])) {
-            return $this->message(null, $method);
-        }
+        $this->session->flash('flash_notification', $this->messages);
+
+        return $this;
     }
 }
