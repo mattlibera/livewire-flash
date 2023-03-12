@@ -28,6 +28,27 @@ Out of the box, the default alert component uses:
 
 However, it's fairly trivial to implement your own views / styles instead, by publishing the config and overriding defaults. See below for more on that.
 
+### Tailwind setup
+
+If you are using Tailwind CSS, you'll likely want to amend the `content` section of your `tailwind.config.js` to include the appropriate files from this package:
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./resources/**/*.blade.php",
+    "./resources/**/*.js",
+    "./resources/**/*.vue",
+    "./vendor/mattlibera/livewire-flash/src/publish/livewire-flash.php",
+    "./vendor/mattlibera/livewire-flash/src/views/livewire/*.blade.php",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+Of course, if you publsh the views/config, you'll reference your own copies instead.
+
 ## Usage
 
 ### Normal flash messages (on reload)
