@@ -17,12 +17,11 @@ class FlashMessage extends Component
             $message = (array) $message;
         }
         $this->message = $message;
-        $this->styles = config('livewire-flash.styles.' . $this->message['level']);
     }
 
     public function render()
     {
-        return view(config('livewire-flash.views.message'));
+        return view('livewire-flash::livewire.flash-message.'.$this->message['level']);
     }
 
     public function dismiss()

@@ -40,6 +40,13 @@ class Message implements \ArrayAccess
     public $dismissable = true;
 
     /**
+     * Auto-dismiss interval, in seconds.
+     *
+     * @var bool|int
+     */
+    public $dismissAfter = false;
+
+    /**
      * Whether the message is an overlay.
      *
      * @var bool
@@ -59,59 +66,60 @@ class Message implements \ArrayAccess
     /**
      * Update the attributes.
      *
-     * @param  array $attributes
+     * @param array $attributes
+     *
      * @return $this
      */
     public function update($attributes = [])
     {
         foreach ($attributes as $key => $attribute) {
-            $this->$key = $attribute;
+            $this->{$key} = $attribute;
         }
+
         return $this;
     }
-
 
     /**
      * Whether the given offset exists.
      *
-     * @param  mixed $offset
+     * @param mixed $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
     {
-        return isset($this->$offset);
+        return isset($this->{$offset});
     }
 
     /**
      * Fetch the offset.
      *
-     * @param  mixed $offset
+     * @param mixed $offset
+     *
      * @return mixed
      */
     public function offsetGet($offset)
     {
-        return $this->$offset;
+        return $this->{$offset};
     }
 
     /**
      * Assign the offset.
      *
-     * @param  mixed $offset
-     * @return void
+     * @param mixed $offset
+     * @param mixed $value
      */
     public function offsetSet($offset, $value)
     {
-        $this->$offset = $value;
+        $this->{$offset} = $value;
     }
 
     /**
      * Unset the offset.
      *
-     * @param  mixed $offset
-     * @return void
+     * @param mixed $offset
      */
     public function offsetUnset($offset)
     {
-        //
     }
 }

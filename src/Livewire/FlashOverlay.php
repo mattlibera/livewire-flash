@@ -17,12 +17,11 @@ class FlashOverlay extends Component
             $message = (array) $message;
         }
         $this->message = $message;
-        $this->styles = config('livewire-flash.styles.overlay');
     }
 
     public function render()
     {
-        return view(config('livewire-flash.views.overlay'));
+        return view('livewire-flash::livewire.flash-overlay');
     }
 
     public function dismiss()
