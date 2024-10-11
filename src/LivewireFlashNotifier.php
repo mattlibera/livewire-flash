@@ -151,7 +151,11 @@ class LivewireFlashNotifier
      */
     public function livewire(Component $livewire)
     {
-        $livewire->emit('flashMessageAdded', $this->messages->pop());
+        if (method_exists($livewire, 'dispatch')) {
+            $livewire->dispatch('flashMessageAdded', $this->messages->pop());
+        } else {
+            $livewire->emit('flashMessageAdded', $this->messages->pop());
+        }
 
         return $this;
     }
