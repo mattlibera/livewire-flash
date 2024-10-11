@@ -19,7 +19,7 @@ class FlashContainer extends Component
 
     public function render()
     {
-        return view(config('livewire-flash.views.container'));
+        return view('livewire-flash::livewire.flash-container');
     }
 
     public function flashMessageAdded($message)
