@@ -2,7 +2,7 @@
 
 This package provides flash message capability using Laravel Livewire. It is based very literally on `laracasts/flash` but has been extended to add the ability to flash a message to a the flash container (a Livewire component) without reloading the page.
 
- This package also retains much (though not all) of the same capability for "normal" flash messages, which are displayed on refresh by the same Livewire component.
+This package also retains much (though not all) of the same capability for "normal" flash messages, which are displayed on refresh by the same Livewire component.
 
 ## Installation
 
@@ -15,7 +15,7 @@ composer require mattlibera/livewire-flash
 ## Requirements
 
 * Laravel >=7.0
-* Livewire ^1.2 or ^2.0
+* Livewire ^1.2, ^2.12.7, or ^3.5.2
 
 > For new applications, consider using the TALL preset for Laravel: [https://github.com/laravel-frontend-presets/tall], or this package also works well with Laravel Jetstream: [https://jetstream.laravel.com/]
 
@@ -23,14 +23,24 @@ composer require mattlibera/livewire-flash
 
 Out of the box, the default alert component uses:
 
-* TailwindCSS
+* TailwindCSS (any version; see below for installation instructions)
 * FontAwesome
 
 However, it's fairly trivial to implement your own views / styles instead, by publishing the config and overriding defaults. See below for more on that.
 
-### Tailwind setup
+### Tailwind setup (4.0+)
 
-If you are using Tailwind CSS, you'll likely want to amend the `content` section of your `tailwind.config.js` to include the appropriate files from this package:
+If using modern Tailwind CSS, you should add a couple of paths to your `app.css` as `@source` directives:
+
+```css
+@source "../../vendor/mattlibera/livewire-flash/src/publish/livewire-flash.php";
+@source "../../vendor/mattlibera/livewire-flash/src/views/livewire/*.blade.php";
+```
+Of course, if you publish the views/config, you'll reference your own copies instead.
+
+### Tailwind setup (> 4.0)
+
+If you are using legacy Tailwind CSS, you should amend the `content` section of your `tailwind.config.js` to include the appropriate files from this package:
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -47,7 +57,7 @@ module.exports = {
   plugins: [],
 }
 ```
-Of course, if you publsh the views/config, you'll reference your own copies instead.
+Of course, if you publish the views/config, you'll reference your own copies instead.
 
 ## Usage
 
@@ -173,9 +183,9 @@ Then, edit the `views` area:
 
 You can access the public message properties on `MattLibera\LivewireFlash\Message`, as well as `$styles` (which is injected via the Livewire component) in your template.
 
-## Dismissable Messages
+## Dismissible Messages
 
-By default, each message will be set to be dismissable (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` (or `->dismissable(false)`) to your flash directive.
+By default, each message will be set to be dismissible (that is, have an X icon at the right that will close the alert). If you wish to prevent this, you can chain `->notDismissable()` (or `->dismissable(false)`) to your flash directive.
 
 You can add your own magic via AlpineJS or whatever else if you want to fade messages out automatically - right now each message is a Livewire component and uses Livewire logic to hide it when it is dismissed.
 
