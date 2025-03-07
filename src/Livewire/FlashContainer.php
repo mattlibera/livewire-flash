@@ -3,10 +3,12 @@
 namespace MattLibera\LivewireFlash\Livewire;
 
 use Livewire\Component;
+use MattLibera\LivewireFlash\Message;
+use MattLibera\LivewireFlash\OverlayMessage;
 
 class FlashContainer extends Component
 {
-    public $messages = [];
+    public array $messages = [];
 
     protected $listeners = ['flashMessageAdded'];
 
@@ -24,7 +26,11 @@ class FlashContainer extends Component
 
     public function flashMessageAdded($message)
     {
-        $this->messages[] = $message;
+        $castedMessage = ($message['overlay'])
+            ? OverlayMessage::fromLivewire($message)
+            : Message::fromLivewire($message);
+
+        $this->messages[] = $castedMessage;
     }
 
     public function dismissMessage($key)

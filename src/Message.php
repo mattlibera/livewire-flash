@@ -2,7 +2,9 @@
 
 namespace MattLibera\LivewireFlash;
 
-class Message implements \ArrayAccess
+use Livewire\Wireable;
+
+class Message implements \ArrayAccess, Wireable
 {
     /**
      * The title of the message.
@@ -113,5 +115,22 @@ class Message implements \ArrayAccess
     public function offsetUnset($offset)
     {
         //
+    }
+
+    public function toLivewire()
+    {
+        return [
+            'title' => $this->title,
+            'message' => $this->message,
+            'level' => $this->level,
+            'important' => $this->important,
+            'dismissable' => $this->dismissable,
+            'overlay' => $this->overlay,
+        ];
+    }
+
+    public static function fromLivewire($value)
+    {
+        return new static ($value);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace MattLibera\LivewireFlash;
 
-class OverlayMessage extends Message
+use Livewire\Wireable;
+
+class OverlayMessage extends Message implements Wireable
 {
     /**
      * The title of the message.
@@ -17,4 +19,12 @@ class OverlayMessage extends Message
      * @var bool
      */
     public $overlay = true;
+
+    public function toLivewire()
+    {
+        return [
+            'title' => $this->title,
+            'overlay' => $this->overlay,
+        ];
+    }
 }
