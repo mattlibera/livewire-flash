@@ -38,7 +38,7 @@ If using modern Tailwind CSS, you should add a couple of paths to your `app.css`
 ```
 Of course, if you publish the views/config, you'll reference your own copies instead.
 
-### Tailwind setup (> 4.0)
+### Tailwind setup (< 4.0)
 
 If you are using legacy Tailwind CSS, you should amend the `content` section of your `tailwind.config.js` to include the appropriate files from this package:
 ```js
