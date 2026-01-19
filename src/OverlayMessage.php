@@ -11,14 +11,14 @@ class OverlayMessage extends Message implements Wireable
      *
      * @var string
      */
-    public $title = null;
+    public string $title = '';
 
     /**
      * Whether the message is an overlay.
      *
      * @var bool
      */
-    public $overlay = true;
+    public bool $overlay = true;
 
     public function toLivewire(): array
     {

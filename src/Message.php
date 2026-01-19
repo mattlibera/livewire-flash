@@ -2,7 +2,6 @@
 
 namespace MattLibera\LivewireFlash;
 
-use InvalidArgumentException;
 use Livewire\Wireable;
 
 class Message implements \ArrayAccess, Wireable
@@ -12,49 +11,49 @@ class Message implements \ArrayAccess, Wireable
      *
      * @var string
      */
-    public $title;
+    public string $title;
 
     /**
      * The body of the message.
      *
      * @var string
      */
-    public $message;
+    public string $message;
 
     /**
      * The message level.
      *
      * @var string
      */
-    public $level = 'info';
+    public string $level = 'info';
 
     /**
      * Whether the message should auto-hide.
      *
      * @var bool
      */
-    public $important = false;
+    public bool $important = false;
 
     /**
      * Whether the message is dismissable.
      *
      * @var bool
      */
-    public $dismissable = true;
+    public bool $dismissable = true;
 
     /**
      * Whether the message is an overlay.
      *
      * @var bool
      */
-    public $overlay = false;
+    public bool $overlay = false;
 
     /**
      * Create a new message instance.
      *
      * @param array $attributes
      */
-    public function __construct($attributes = [])
+    public function __construct(array $attributes = [])
     {
         $this->update($attributes);
     }
@@ -65,7 +64,7 @@ class Message implements \ArrayAccess, Wireable
      * @param  array $attributes
      * @return $this
      */
-    public function update($attributes = [])
+    public function update(array $attributes = [])
     {
         foreach ($attributes as $key => $attribute) {
             $this->$key = $attribute;
@@ -130,13 +129,10 @@ class Message implements \ArrayAccess, Wireable
         ];
     }
 
-    public static function fromLivewire($value)
+    public static function fromLivewire(array|Message $value)
     {
         if ($value instanceof static) {
             return $value;
-        }
-        if (!is_array($value)) {
-            throw new InvalidArgumentException(static::class . '::fromLivewire expects an array or instance.');
         }
 
         return new static ($value);
