@@ -2,6 +2,7 @@
 
 namespace MattLibera\LivewireFlash;
 
+use InvalidArgumentException;
 use Livewire\Wireable;
 
 class Message implements \ArrayAccess, Wireable
@@ -11,14 +12,14 @@ class Message implements \ArrayAccess, Wireable
      *
      * @var string
      */
-    public string $title;
+    public string $title = '';
 
     /**
      * The body of the message.
      *
      * @var string
      */
-    public string $message;
+    public string $message = '';
 
     /**
      * The message level.
@@ -129,10 +130,13 @@ class Message implements \ArrayAccess, Wireable
         ];
     }
 
-    public static function fromLivewire(array|Message $value)
+    public static function fromLivewire($value)
     {
         if ($value instanceof static) {
             return $value;
+        }
+        if (!is_array($value)) {
+            throw new InvalidArgumentException(static::class . '::fromLivewire expects an array or instance.');
         }
 
         return new static ($value);

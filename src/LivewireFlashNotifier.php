@@ -2,6 +2,7 @@
 
 namespace MattLibera\LivewireFlash;
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Illuminate\Support\Traits\Macroable;
 
@@ -11,17 +12,10 @@ class LivewireFlashNotifier
 
     /**
      * The session store.
-     *
-     * @var SessionStore
      */
-    protected $session;
+    protected SessionStore $session;
 
-    /**
-     * The messages collection.
-     *
-     * @var \Illuminate\Support\Collection
-     */
-    public $messages;
+    public Collection $messages;
 
     /**
      * Create a new FlashNotifier instance.
@@ -36,12 +30,8 @@ class LivewireFlashNotifier
 
     /**
      * Flash a general message.
-     *
-     * @param  string|null $message
-     * @param  string|null $level
-     * @return $this
      */
-    public function message($message = null, $level = null)
+    public function message(string $message = '', string $level = 'info'): self
     {
         // If no message was provided, we should update
         // the most recently added message.
@@ -60,11 +50,8 @@ class LivewireFlashNotifier
 
     /**
      * Modify the most recently added message.
-     *
-     * @param  array $overrides
-     * @return $this
      */
-    protected function updateLastMessage($overrides = [])
+    protected function updateLastMessage(array $overrides = []): self
     {
         $this->messages->last()->update($overrides);
 
@@ -73,12 +60,8 @@ class LivewireFlashNotifier
 
     /**
      * Flash an overlay modal.
-     *
-     * @param  string|null $message
-     * @param  string      $title
-     * @return $this
      */
-    public function overlay($message = null, $title = null)
+    public function overlay($message = '', $title = ''): self
     {
         if (! $message) {
             return $this->updateLastMessage(['title' => $title, 'overlay' => true]);
@@ -94,7 +77,7 @@ class LivewireFlashNotifier
      *
      * @return $this
      */
-    public function important()
+    public function important(): self
     {
         return $this->updateLastMessage(['important' => true]);
     }
@@ -106,7 +89,7 @@ class LivewireFlashNotifier
      *
      * @return $this
      */
-    public function dismissable(bool $dismissable = true)
+    public function dismissable(bool $dismissable = true): self
     {
         return $this->updateLastMessage(['dismissable' => $dismissable]);
     }
@@ -116,7 +99,7 @@ class LivewireFlashNotifier
      *
      * @return void
      */
-    public function notDismissable()
+    public function notDismissable(): self
     {
         return $this->dismissable(false);
     }
@@ -126,7 +109,7 @@ class LivewireFlashNotifier
      *
      * @return $this
      */
-    public function clear()
+    public function clear(): self
     {
         $this->messages = collect();
 
@@ -136,7 +119,7 @@ class LivewireFlashNotifier
     /**
      * Flash all messages to the session.
      */
-    protected function flash()
+    protected function flash(): self
     {
         $this->session->flash('flash_notification', $this->messages);
 
@@ -145,11 +128,8 @@ class LivewireFlashNotifier
 
     /**
      * Pop the last message off the stack and emit it to the Livewire component
-     *
-     * @param  Livewire\Component $livewire
-     * @return \MattLibera\LivewireFlash\LivewireFlashNotifier
      */
-    public function livewire(Component $livewire)
+    public function livewire(Component $livewire): self
     {
         if (method_exists($livewire, 'dispatch')) {
             $livewire->dispatch('flashMessageAdded', $this->messages->pop());
@@ -172,7 +152,7 @@ class LivewireFlashNotifier
     {
         $messageTypes = config('livewire-flash.styles');
         if (isset($messageTypes[$method])) {
-            return $this->message(null, $method);
+            return $this->message('', $method);
         }
     }
 }
