@@ -20,11 +20,11 @@ class OverlayMessage extends Message implements Wireable
      */
     public $overlay = true;
 
-    public function toLivewire()
+    public function toLivewire(): array
     {
-        return [
+        return array_merge(parent::toLivewire(),[
             'title' => $this->title,
             'overlay' => $this->overlay,
-        ];
+        ]);
     }
 }
