@@ -1,3 +1,10 @@
+> [!WARNING]
+> I'm considering this package EOL at this time. I do not have time to continue maintaining it, and its approach is pretty well out-of-date for most modern stacks.
+> If someone wants to take over maintenance here, please let me know. Otherwise, this package will be officially deprecated.
+
+> [!NOTE]
+> Version 1.0 requires PHP8 or above.
+
 # Livewire Flash
 
 This package provides flash message capability using Laravel Livewire. It is based very literally on `laracasts/flash` but has been extended to add the ability to flash a message to a the flash container (a Livewire component) without reloading the page.
@@ -14,8 +21,12 @@ composer require mattlibera/livewire-flash
 
 ## Requirements
 
-* Laravel >=7.0
-* Livewire ^1.2, ^2.12.7, or ^3.5.2
+Version 1.0 requires:
+
+* Laravel >=8.0
+* Livewire ^2.12.7, or ^3.6.4
+
+If you need legacy PHP or Livewire support please stay on v0.x
 
 > For new applications, consider using the TALL preset for Laravel: [https://github.com/laravel-frontend-presets/tall], or this package also works well with Laravel Jetstream: [https://jetstream.laravel.com/]
 
