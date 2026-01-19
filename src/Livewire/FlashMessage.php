@@ -3,19 +3,17 @@
 namespace MattLibera\LivewireFlash\Livewire;
 
 use Livewire\Component;
+use MattLibera\LivewireFlash\Message;
 
 class FlashMessage extends Component
 {
-    public $message;
-    public $styles = [];
+    public Message $message;
+    public array $styles = [];
 
     public $shown = true;
 
-    public function mount($message)
+    public function mount(Message $message)
     {
-        if (!is_array($message)) {
-            $message = (array) $message;
-        }
         $this->message = $message;
         $this->styles = config('livewire-flash.styles.' . $this->message['level']);
     }

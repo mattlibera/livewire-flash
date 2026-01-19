@@ -2,56 +2,59 @@
 
 namespace MattLibera\LivewireFlash;
 
-class Message implements \ArrayAccess
+use InvalidArgumentException;
+use Livewire\Wireable;
+
+class Message implements \ArrayAccess, Wireable
 {
     /**
      * The title of the message.
      *
      * @var string
      */
-    public $title;
+    public string $title = '';
 
     /**
      * The body of the message.
      *
      * @var string
      */
-    public $message;
+    public string $message = '';
 
     /**
      * The message level.
      *
      * @var string
      */
-    public $level = 'info';
+    public string $level = 'info';
 
     /**
      * Whether the message should auto-hide.
      *
      * @var bool
      */
-    public $important = false;
+    public bool $important = false;
 
     /**
      * Whether the message is dismissable.
      *
      * @var bool
      */
-    public $dismissable = true;
+    public bool $dismissable = true;
 
     /**
      * Whether the message is an overlay.
      *
      * @var bool
      */
-    public $overlay = false;
+    public bool $overlay = false;
 
     /**
      * Create a new message instance.
      *
      * @param array $attributes
      */
-    public function __construct($attributes = [])
+    public function __construct(array $attributes = [])
     {
         $this->update($attributes);
     }
@@ -62,7 +65,7 @@ class Message implements \ArrayAccess
      * @param  array $attributes
      * @return $this
      */
-    public function update($attributes = [])
+    public function update(array $attributes = [])
     {
         foreach ($attributes as $key => $attribute) {
             $this->$key = $attribute;
@@ -113,5 +116,29 @@ class Message implements \ArrayAccess
     public function offsetUnset($offset)
     {
         //
+    }
+
+    public function toLivewire(): array
+    {
+        return [
+            'title' => $this->title,
+            'message' => $this->message,
+            'level' => $this->level,
+            'important' => $this->important,
+            'dismissable' => $this->dismissable,
+            'overlay' => $this->overlay,
+        ];
+    }
+
+    public static function fromLivewire($value)
+    {
+        if ($value instanceof static) {
+            return $value;
+        }
+        if (!is_array($value)) {
+            throw new InvalidArgumentException(static::class . '::fromLivewire expects an array or instance.');
+        }
+
+        return new static ($value);
     }
 }
