@@ -10,8 +10,8 @@
     ],
     "require": {
         "php": ">=8.0.0",
-        "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
-        "livewire/livewire": "^2.12.7|^3.6.4"
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0",
+        "livewire/livewire": "^2.12.7|^3.6.4|dev-josh/v3-laravel-13-support"
     },
     "require-dev": {
         "mockery/mockery": "dev-master",
