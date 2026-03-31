@@ -14,8 +14,8 @@
         "livewire/livewire": "^2.12.7|^3.6.4"
     },
     "require-dev": {
-        "mockery/mockery": "dev-master",
-        "phpunit/phpunit": "^6.1|^9.5.10|^10.5"
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^10.5|^11.0"
     },
     "autoload": {
         "psr-4": {
