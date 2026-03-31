@@ -8,7 +8,7 @@ use MattLibera\LivewireFlash\OverlayMessage;
 
 class FlashOverlay extends Component
 {
-    public OverlayMessage $message;
+    public $message;
     public array $styles = [];
 
     public bool $shown = true;

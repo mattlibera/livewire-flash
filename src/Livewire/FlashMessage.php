@@ -7,7 +7,7 @@ use MattLibera\LivewireFlash\Message;
 
 class FlashMessage extends Component
 {
-    public Message $message;
+    public $message;
     public array $styles = [];
 
     public $shown = true;
