@@ -12,10 +12,10 @@ class FlashMessage extends Component
 
     public $shown = true;
 
-    public function mount(Message $message)
+    public function mount($message)
     {
-        $this->message = $message;
-        $this->styles = config('livewire-flash.styles.' . $this->message['level']);
+        $this->message = $message instanceof Message ? $message : Message::fromLivewire($message);
+        $this->styles = config('livewire-flash.styles.' . $this->message->level);
     }
 
     public function render()
