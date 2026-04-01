@@ -14,8 +14,8 @@ class FlashMessage extends Component
 
     public function mount($message)
     {
-        $this->message = $message instanceof Message ? $message : Message::fromLivewire($message);
-        $this->styles = config('livewire-flash.styles.' . $this->message->level);
+        $this->message = $message instanceof Message ? $message->toLivewire() : $message;
+        $this->styles = config('livewire-flash.styles.' . data_get($this->message, 'level'));
     }
 
     public function render()

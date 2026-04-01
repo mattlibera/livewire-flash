@@ -15,7 +15,7 @@ class FlashOverlay extends Component
 
     public function mount($message)
     {
-        $this->message = $message instanceof OverlayMessage ? $message : OverlayMessage::fromLivewire($message);
+        $this->message = $message instanceof OverlayMessage ? $message->toLivewire() : $message;
         $this->styles = config('livewire-flash.styles.overlay');
     }
 
