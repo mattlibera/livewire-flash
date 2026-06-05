@@ -9,7 +9,12 @@ class FlashContainer extends Component
 {
     public array $messages = [];
 
-    protected $listeners = ['flashMessageAdded'];
+    protected function getListeners(): array
+    {
+        // Livewire v3+ uses #[On] attributes; $listeners was removed in v4.
+        // Return the array only on v2 so v3/v4 don't double-fire.
+        return class_exists(\Livewire\Attributes\On::class) ? [] : ['flashMessageAdded'];
+    }
 
     public function mount()
     {
@@ -26,6 +31,7 @@ class FlashContainer extends Component
         return view(config('livewire-flash.views.container'));
     }
 
+    #[\Livewire\Attributes\On('flashMessageAdded')]
     public function flashMessageAdded($message)
     {
         // $message may arrive as a Message object or plain array depending on Livewire version
