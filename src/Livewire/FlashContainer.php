@@ -4,7 +4,6 @@ namespace MattLibera\LivewireFlash\Livewire;
 
 use Livewire\Component;
 use MattLibera\LivewireFlash\Message;
-use MattLibera\LivewireFlash\OverlayMessage;
 
 class FlashContainer extends Component
 {
@@ -14,8 +13,11 @@ class FlashContainer extends Component
 
     public function mount()
     {
-        // grab any normal flash messages and render them
-        $this->messages = session('flash_notification', collect())->toArray();
+        // grab any normal flash messages and render them, stored as plain arrays
+        $this->messages = session('flash_notification', collect())
+            ->map(fn (Message $m) => $m->toLivewire())
+            ->values()
+            ->toArray();
         session()->forget('flash_notification');
     }
 
@@ -26,11 +28,12 @@ class FlashContainer extends Component
 
     public function flashMessageAdded($message)
     {
-        $castedMessage = ($message['overlay'])
-            ? OverlayMessage::fromLivewire($message)
-            : Message::fromLivewire($message);
+        // $message may arrive as a Message object or plain array depending on Livewire version
+        if ($message instanceof Message) {
+            $message = $message->toLivewire();
+        }
 
-        $this->messages[] = $castedMessage;
+        $this->messages[] = $message;
     }
 
     public function dismissMessage($key)

@@ -3,18 +3,19 @@
 namespace MattLibera\LivewireFlash\Livewire;
 
 use Livewire\Component;
+use MattLibera\LivewireFlash\Message;
 use MattLibera\LivewireFlash\OverlayMessage;
 
 class FlashOverlay extends Component
 {
-    public OverlayMessage $message;
+    public $message;
     public array $styles = [];
 
     public bool $shown = true;
 
     public function mount($message)
     {
-        $this->message = $message;
+        $this->message = $message instanceof OverlayMessage ? $message->toLivewire() : $message;
         $this->styles = config('livewire-flash.styles.overlay');
     }
 

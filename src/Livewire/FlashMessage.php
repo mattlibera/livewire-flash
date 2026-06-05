@@ -7,15 +7,15 @@ use MattLibera\LivewireFlash\Message;
 
 class FlashMessage extends Component
 {
-    public Message $message;
+    public $message;
     public array $styles = [];
 
     public $shown = true;
 
-    public function mount(Message $message)
+    public function mount($message)
     {
-        $this->message = $message;
-        $this->styles = config('livewire-flash.styles.' . $this->message['level']);
+        $this->message = $message instanceof Message ? $message->toLivewire() : $message;
+        $this->styles = config('livewire-flash.styles.' . data_get($this->message, 'level'));
     }
 
     public function render()
