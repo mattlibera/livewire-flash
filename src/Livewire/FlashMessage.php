@@ -2,15 +2,19 @@
 
 namespace MattLibera\LivewireFlash\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use MattLibera\LivewireFlash\Message;
 
 class FlashMessage extends Component
 {
+    #[Locked]
     public $message;
+
+    #[Locked]
     public array $styles = [];
 
-    public $shown = true;
+    public bool $shown = true;
 
     public function mount($message)
     {
