@@ -2,13 +2,17 @@
 
 namespace MattLibera\LivewireFlash\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use MattLibera\LivewireFlash\Message;
 use MattLibera\LivewireFlash\OverlayMessage;
 
 class FlashOverlay extends Component
 {
+    #[Locked]
     public $message;
+
+    #[Locked]
     public array $styles = [];
 
     public bool $shown = true;

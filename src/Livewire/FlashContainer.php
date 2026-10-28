@@ -2,11 +2,16 @@
 
 namespace MattLibera\LivewireFlash\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use MattLibera\LivewireFlash\Message;
 
 class FlashContainer extends Component
 {
+    // Only the server adds or removes messages; Livewire v3+ rejects a
+    // browser update to a locked property. (v2 ignores the attribute and
+    // checksums the payload instead.)
+    #[Locked]
     public array $messages = [];
 
     protected function getListeners(): array
@@ -34,16 +39,44 @@ class FlashContainer extends Component
     #[\Livewire\Attributes\On('flashMessageAdded')]
     public function flashMessageAdded($message)
     {
-        // $message may arrive as a Message object or plain array depending on Livewire version
-        if ($message instanceof Message) {
-            $message = $message->toLivewire();
+        // Events can also be dispatched from the browser, so only a well-formed
+        // message is kept; anything else would break the container's render.
+        if ($message = $this->normalizeMessage($message)) {
+            $this->messages[] = $message;
         }
-
-        $this->messages[] = $message;
     }
 
     public function dismissMessage($key)
     {
         unset($this->messages[$key]);
+    }
+
+    /**
+     * A message as the plain array the views expect, or null if it isn't one.
+     * It may arrive as a Message object or a plain array depending on Livewire version.
+     */
+    protected function normalizeMessage($message): ?array
+    {
+        if ($message instanceof Message) {
+            return $message->toLivewire();
+        }
+
+        if (! is_array($message)) {
+            return null;
+        }
+
+        $normalized = (new Message)->toLivewire();
+
+        foreach ($normalized as $key => $default) {
+            $value = $message[$key] ?? $default;
+
+            if (get_debug_type($value) !== get_debug_type($default)) {
+                return null;
+            }
+
+            $normalized[$key] = $value;
+        }
+
+        return $normalized;
     }
 }

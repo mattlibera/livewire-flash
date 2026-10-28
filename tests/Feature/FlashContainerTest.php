@@ -3,7 +3,9 @@
 namespace MattLibera\LivewireFlash\Tests\Feature;
 
 use Livewire\Livewire;
+use Livewire\Features\SupportLockedProperties\CannotUpdateLockedPropertyException;
 use MattLibera\LivewireFlash\Livewire\FlashContainer;
+use MattLibera\LivewireFlash\Livewire\FlashMessage;
 use MattLibera\LivewireFlash\Message;
 use MattLibera\LivewireFlash\OverlayMessage;
 use MattLibera\LivewireFlash\Tests\TestCase;
@@ -163,4 +165,46 @@ class FlashContainerTest extends TestCase
 
         $this->assertEmpty($component->get('messages'));
     }
+
+    // ---------------------------------------------------------------------------
+    // Tampered requests — the browser controls update payloads and can dispatch
+    // events, so neither may leave a message the views can't render.
+    // ---------------------------------------------------------------------------
+
+    public function test_browser_cannot_update_messages(): void
+    {
+        $this->expectException(CannotUpdateLockedPropertyException::class);
+
+        Livewire::test(FlashContainer::class)->set('messages', [1]);
+    }
+
+    public function test_browser_cannot_update_a_rendered_message(): void
+    {
+        $this->expectException(CannotUpdateLockedPropertyException::class);
+
+        Livewire::test(FlashMessage::class, ['message' => (new Message(['message' => 'Hi']))->toLivewire()])
+            ->set('message', 1);
+    }
+
+    public function test_flash_message_added_ignores_malformed_messages(): void
+    {
+        $component = Livewire::test(FlashContainer::class);
+
+        $component->call('flashMessageAdded', 1);
+        $component->call('flashMessageAdded', 'text');
+        $component->call('flashMessageAdded', ['message' => ['nested']]);
+        $component->call('flashMessageAdded', ['message' => 'Hi', 'overlay' => 'yes']);
+
+        $this->assertEmpty($component->get('messages'));
+    }
+
+    public function test_flash_message_added_fills_missing_keys_with_defaults(): void
+    {
+        $component = Livewire::test(FlashContainer::class);
+
+        $component->call('flashMessageAdded', ['message' => 'Partial']);
+
+        $this->assertEquals((new Message(['message' => 'Partial']))->toLivewire(), $component->get('messages')[0]);
+    }
 }
+
